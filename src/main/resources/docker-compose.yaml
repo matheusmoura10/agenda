@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo
+    container_name: ms-agenda-mongo
+    restart: unless-stopped
+    volumes:
+      - '.docker/local/data/mongodb:/var/lib/mongodb'
+    ports:
+      - "27017:27017"
+    networks:  # Check indentation here
+      - ms-agenda-network  # Check indentation here
+
+networks:
+  ms-agenda-network:
+    driver: bridge

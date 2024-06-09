@@ -1,0 +1,12 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: src/main/resources/docker-compose.yaml
+  data:
+    mongodb:
+      host: mongodb://ms-agenda-mongo:27017/agenda
+      port: 27017
+      database: root
+      username: root
+      password: root
