@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public record EnderecoInputDTO(
     @NotBlank(message = "O CEP é obrigatório")
-    @Size(min = 8, max = 8, message = "O CEP deve ter 8 caracteres")
+    @Size(min = 9, max = 9, message = "O CEP deve ter 9 caracteres")
     String cep,
 
     @NotBlank(message = "O logradouro é obrigatório")

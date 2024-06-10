@@ -48,6 +48,8 @@ public class PacienteValidator extends Validator {
             if (nome.matches(".*\\d.*")) {
                 validationHandler().append(new Error("Nome do paciente não pode conter números"));
             }
+
+
         }
     }
 
@@ -58,12 +60,15 @@ public class PacienteValidator extends Validator {
         } else {
             if (telefone.length() > PHONE_MAX_LENGTH) {
                 validationHandler().append(new Error("Telefone do paciente não pode ter mais de " + PHONE_MAX_LENGTH + " caracteres"));
+                return;
             }
             if (telefone.length() < PHONE_MIN_LENGTH) {
                 validationHandler().append(new Error("Telefone do paciente não pode ter menos de " + PHONE_MIN_LENGTH + " caracteres"));
+                return;
             }
             if (telefone.matches(".*\\D.*")) {
                 validationHandler().append(new Error("Telefone do paciente não pode conter letras"));
+                return;
             }
         }
     }
