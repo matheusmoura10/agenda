@@ -1,5 +1,11 @@
 package com.wareline.agenda.application.paciente.dto;
-
-public record PacienteOuputDTO() {
+import java.util.Set;
+public record PacienteOuputDTO(
+        String id,
+        String nome,
+        String email,
+        String telefone,
+        Set<EnderecoInputDTO> enderecos
+) {
 
 }
