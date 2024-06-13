@@ -5,8 +5,8 @@ spring:
       file: src/main/resources/docker-compose.yaml
   data:
     mongodb:
-      host: mongodb://ms-agenda-mongo:27017/agenda
+      host: mongodb://ms-agenda-mongo:27017
       port: 27017
-      database: root
+      database: agenda
       username: root
       password: root

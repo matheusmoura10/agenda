@@ -2,12 +2,10 @@ package com.wareline.agenda.application.paciente;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.wareline.agenda.application.paciente.dto.PacienteOuputDTO;
 import com.wareline.agenda.application.paciente.mappers.PacienteMapper;
 import com.wareline.agenda.domain.paciente.PacienteEntity;
 import com.wareline.agenda.infra.model.PacienteModel;

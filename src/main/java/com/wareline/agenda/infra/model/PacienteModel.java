@@ -3,6 +3,7 @@ package com.wareline.agenda.infra.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,6 +15,7 @@ public class PacienteModel {
     @Id
     private String id;
 
+    @Indexed(unique = true)
     private String nome;
     private String email;
     private String telefone;

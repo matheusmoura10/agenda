@@ -18,6 +18,12 @@ public class EnderecoValidator {
     private static final int ESTADO_LENGTH = 2;
     private static final int CEP_LENGTH = 9;
 
+    private static final String ERROR_EMPTY = "%s não pode ser vazio";
+    private static final String ERROR_MIN_LENGTH = "%s não pode ter menos de %d caracteres";
+    private static final String ERROR_MAX_LENGTH = "%s não pode ter mais de %d caracteres";
+    private static final String ERROR_INVALID_CEP = "CEP do endereço inválido";
+    private static final String ERROR_INVALID_CEP_LENGTH = "CEP do endereço deve ter " + CEP_LENGTH + " caracteres";
+
     private final EnderecoVO endereco;
     private final ValidationHandlerInterface validationHandler;
 
@@ -27,43 +33,50 @@ public class EnderecoValidator {
     }
 
     public void validate() {
-        validateField(endereco.getLogradouro(), "Logradouro do endereço", LOGRADOURO_MAX_LENGTH, LOGRADOURO_MIN_LENGTH);
-        validateField(endereco.getNumero(), "Número do endereço", NUMERO_MAX_LENGTH, NUMERO_MIN_LENGTH);
-        validateOptionalField(endereco.getComplemento(), "Complemento do endereço", COMPLEMENTO_MAX_LENGTH);
-        validateField(endereco.getBairro(), "Bairro do endereço", BAIRRO_MAX_LENGTH, BAIRRO_MIN_LENGTH);
-        validateField(endereco.getCidade(), "Cidade do endereço", CIDADE_MAX_LENGTH, CIDADE_MIN_LENGTH);
-        validateField(endereco.getEstado(), "Estado do endereço", ESTADO_LENGTH, ESTADO_LENGTH);
+        validateFieldLength(endereco.getLogradouro(), "Logradouro do endereço", LOGRADOURO_MAX_LENGTH, LOGRADOURO_MIN_LENGTH);
+        validateFieldLength(endereco.getNumero(), "Número do endereço", NUMERO_MAX_LENGTH, NUMERO_MIN_LENGTH);
+        validateOptionalFieldLength(endereco.getComplemento(), "Complemento do endereço", COMPLEMENTO_MAX_LENGTH);
+        validateFieldLength(endereco.getBairro(), "Bairro do endereço", BAIRRO_MAX_LENGTH, BAIRRO_MIN_LENGTH);
+        validateFieldLength(endereco.getCidade(), "Cidade do endereço", CIDADE_MAX_LENGTH, CIDADE_MIN_LENGTH);
+        validateExactFieldLength(endereco.getEstado(), "Estado do endereço", ESTADO_LENGTH);
         validateCep(endereco.getCep());
     }
 
-    private void validateField(String value, String fieldName, int maxLength, int minLength) {
+    private void validateFieldLength(String value, String fieldName, int maxLength, int minLength) {
         if (isNullOrEmpty(value)) {
-            validationHandler.append(new Error(fieldName + " não pode ser vazio"));
+            validationHandler.append(new Error(fieldName, String.format(ERROR_EMPTY, fieldName)));
         } else {
             if (value.length() > maxLength) {
-                validationHandler.append(new Error(fieldName + " não pode ter mais de " + maxLength + " caracteres"));
+                validationHandler.append(new Error(fieldName, String.format(ERROR_MAX_LENGTH, fieldName, maxLength)));
             }
             if (value.length() < minLength) {
-                validationHandler.append(new Error(fieldName + " não pode ter menos de " + minLength + " caracteres"));
+                validationHandler.append(new Error(fieldName, String.format(ERROR_MIN_LENGTH, fieldName, minLength)));
             }
         }
     }
 
-    private void validateOptionalField(String value, String fieldName, int maxLength) {
+    private void validateOptionalFieldLength(String value, String fieldName, int maxLength) {
         if (value != null && value.length() > maxLength) {
-            validationHandler.append(new Error(fieldName + " não pode ter mais de " + maxLength + " caracteres"));
+            validationHandler.append(new Error(fieldName, String.format(ERROR_MAX_LENGTH, fieldName, maxLength)));
+        }
+    }
+
+    private void validateExactFieldLength(String value, String fieldName, int length) {
+        if (isNullOrEmpty(value)) {
+            validationHandler.append(new Error(fieldName, String.format(ERROR_EMPTY, fieldName)));
+        } else if (value.length() != length) {
+            validationHandler.append(new Error(fieldName, String.format(ERROR_MIN_LENGTH, fieldName, length)));
         }
     }
 
     private void validateCep(String cep) {
         if (isNullOrEmpty(cep)) {
-            validationHandler.append(new Error("CEP do endereço não pode ser vazio"));
+            validationHandler.append(new Error("CEP", String.format(ERROR_EMPTY, "CEP")));
         } else {
             if (cep.length() != CEP_LENGTH) {
-                validationHandler.append(new Error("CEP do endereço deve ter " + CEP_LENGTH + " caracteres"));
-            }
-            if (!cep.matches("\\d{5}-\\d{3}")) {
-                validationHandler.append(new Error("CEP do endereço inválido"));
+                validationHandler.append(new Error("CEP", ERROR_INVALID_CEP_LENGTH));
+            } else if (!cep.matches("\\d{5}-\\d{3}")) {
+                validationHandler.append(new Error("CEP", ERROR_INVALID_CEP));
             }
         }
     }

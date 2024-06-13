@@ -36,7 +36,7 @@ public class PacienteShowUsecase extends UseCase<String, Either<Notification, Pa
         Optional<PacienteModel> model = repository.findById(input);
 
         if (model.isEmpty()) {
-            notification.append(new Error("Paciente não encontrado"));
+            notification.append(new Error("","Paciente não encontrado"));
             return Either.left(notification);
         }
 

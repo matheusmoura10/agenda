@@ -1,7 +1,5 @@
 package com.wareline.agenda.shared.paginacao;
 
-import jakarta.validation.constraints.NotBlank;
-
 public record SearchQuery(
         int page,
         int perPage,

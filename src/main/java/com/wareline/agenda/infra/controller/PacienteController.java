@@ -3,6 +3,7 @@ package com.wareline.agenda.infra.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wareline.agenda.application.paciente.PacienteCreateUsecase;
@@ -25,7 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
-@RestController("paciente")
+@RestController()
+@RequestMapping("/pacientes")
 public class PacienteController {
 
         private final PacienteCreateUsecase pacienteCreateUsecase;

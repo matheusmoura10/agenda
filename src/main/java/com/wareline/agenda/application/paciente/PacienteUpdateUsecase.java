@@ -35,7 +35,7 @@ public class PacienteUpdateUsecase extends UseCase<PacienteUpdateDTO, Either<Not
         Optional<PacienteModel> pacienteModelOpt = repository.findById(input.id());
 
         if (pacienteModelOpt.isEmpty()) {
-            notification.append(new Error("Paciente não encontrado"));
+            notification.append(new Error("sistema","Paciente não encontrado"));
             return Either.left(notification);
         }
 
@@ -45,7 +45,7 @@ public class PacienteUpdateUsecase extends UseCase<PacienteUpdateDTO, Either<Not
         try {
             pacienteEntity = mapper.updateEntityFromDto(input, pacienteEntity);
         } catch (IllegalArgumentException e) {
-            notification.append(new Error("Erro ao mapear propriedades: " + e.getMessage()));
+            notification.append(new Error("sistema","Erro ao mapear propriedades: " + e.getMessage()));
             return Either.left(notification);
         }
 
