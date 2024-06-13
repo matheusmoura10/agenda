@@ -6,5 +6,4 @@ import com.wareline.agenda.infra.model.PacienteModel;
 
 public interface PacienteRepository extends MongoRepository<PacienteModel, String> {
 
-
 }

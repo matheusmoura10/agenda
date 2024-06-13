@@ -19,7 +19,7 @@ public class Notification implements ValidationHandlerInterface  {
     }
 
     public static Notification create(final Throwable t) {
-        return create(new Error(t.getMessage()));
+        return create(new Error("",t.getMessage()));
     }
 
     public static Notification create(final Error anError) {
@@ -45,7 +45,7 @@ public class Notification implements ValidationHandlerInterface  {
         } catch (final DomainException ex) {
             this.errors.addAll(ex.getErrors());
         } catch (final Throwable t) {
-            this.errors.add(new Error(t.getMessage()));
+            this.errors.add(new Error("",t.getMessage()));
         }
         return null;
     }

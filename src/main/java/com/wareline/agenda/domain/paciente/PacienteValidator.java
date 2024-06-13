@@ -37,38 +37,33 @@ public class PacienteValidator extends Validator {
     private void validateName() {
         String nome = pacienteEntity.getNome();
         if (isNullOrEmpty(nome)) {
-            validationHandler().append(new Error("Nome do paciente não pode ser vazio"));
+            validationHandler().append(new Error("nome","Nome do paciente não pode ser vazio"));
         } else {
             if (nome.length() > NAME_MAX_LENGTH) {
-                validationHandler().append(new Error("Nome do paciente não pode ter mais de " + NAME_MAX_LENGTH + " caracteres"));
+                validationHandler().append(new Error("nome","Nome do paciente não pode ter mais de " + NAME_MAX_LENGTH + " caracteres"));
             }
             if (nome.length() < NAME_MIN_LENGTH) {
-                validationHandler().append(new Error("Nome do paciente não pode ter menos de " + NAME_MIN_LENGTH + " caracteres"));
+                validationHandler().append(new Error("nome","Nome do paciente não pode ter menos de " + NAME_MIN_LENGTH + " caracteres"));
             }
             if (nome.matches(".*\\d.*")) {
-                validationHandler().append(new Error("Nome do paciente não pode conter números"));
+                validationHandler().append(new Error("nome","Nome do paciente não pode conter números"));
             }
-
-
         }
     }
 
     private void validatePhone() {
         String telefone = pacienteEntity.getTelefone();
         if (isNullOrEmpty(telefone)) {
-            validationHandler().append(new Error("Telefone do paciente não pode ser vazio"));
+            validationHandler().append(new Error("telefone","Telefone do paciente não pode ser vazio"));
         } else {
             if (telefone.length() > PHONE_MAX_LENGTH) {
-                validationHandler().append(new Error("Telefone do paciente não pode ter mais de " + PHONE_MAX_LENGTH + " caracteres"));
-                return;
+                validationHandler().append(new Error("telefone","Telefone do paciente não pode ter mais de " + PHONE_MAX_LENGTH + " caracteres"));
             }
             if (telefone.length() < PHONE_MIN_LENGTH) {
-                validationHandler().append(new Error("Telefone do paciente não pode ter menos de " + PHONE_MIN_LENGTH + " caracteres"));
-                return;
+                validationHandler().append(new Error("telefone","Telefone do paciente não pode ter menos de " + PHONE_MIN_LENGTH + " caracteres"));
             }
             if (telefone.matches(".*\\D.*")) {
-                validationHandler().append(new Error("Telefone do paciente não pode conter letras"));
-                return;
+                validationHandler().append(new Error("telefone","Telefone do paciente não pode conter letras"));
             }
         }
     }
@@ -76,16 +71,16 @@ public class PacienteValidator extends Validator {
     private void validateEmail() {
         String email = pacienteEntity.getEmail();
         if (isNullOrEmpty(email)) {
-            validationHandler().append(new Error("Email do paciente não pode ser vazio"));
+            validationHandler().append(new Error("email","Email do paciente não pode ser vazio"));
         } else {
             if (email.length() > EMAIL_MAX_LENGTH) {
-                validationHandler().append(new Error("Email do paciente não pode ter mais de " + EMAIL_MAX_LENGTH + " caracteres"));
+                validationHandler().append(new Error("email","Email do paciente não pode ter mais de " + EMAIL_MAX_LENGTH + " caracteres"));
             }
             if (email.length() < EMAIL_MIN_LENGTH) {
-                validationHandler().append(new Error("Email do paciente não pode ter menos de " + EMAIL_MIN_LENGTH + " caracteres"));
+                validationHandler().append(new Error("email","Email do paciente não pode ter menos de " + EMAIL_MIN_LENGTH + " caracteres"));
             }
             if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-                validationHandler().append(new Error("Email do paciente inválido"));
+                validationHandler().append(new Error("email","Email do paciente inválido"));
             }
         }
     }
@@ -93,10 +88,10 @@ public class PacienteValidator extends Validator {
     private void validateEnderecos() {
         Set<EnderecoVO> enderecos = pacienteEntity.getEnderecos();
         if (enderecos == null || enderecos.isEmpty()) {
-            validationHandler().append(new Error("Endereços do paciente não podem ser vazios"));
+            validationHandler().append(new Error("endereços","Endereços do paciente não podem ser vazios"));
         } else {
             if (enderecos.size() > MAX_ADDRESSES) {
-                validationHandler().append(new Error("Paciente não pode ter mais de " + MAX_ADDRESSES + " endereços"));
+                validationHandler().append(new Error("endereços","Paciente não pode ter mais de " + MAX_ADDRESSES + " endereços"));
             }
             for (EnderecoVO endereco : enderecos) {
                 new EnderecoValidator(endereco, validationHandler()).validate();
